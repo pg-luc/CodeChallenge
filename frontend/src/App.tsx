@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 // components
@@ -16,6 +17,19 @@ interface SchemeData {
 function App() {
   // array to store the schemes 
   const [schemeList, setSchemeList] = useState<SchemeData[]>([]);
+
+  // function to handle when add pricing scheme button is pressed
+  const handleAddPricingScheme = () => {
+    // when add button is pressed, initliase a SchemeData object
+    const newScheme: SchemeData = {
+      id: uuidv4(),
+      amount: "rate",
+      type: ""
+    };
+
+    // add the new scheme to the list
+    setSchemeList([...schemeList, newScheme]);
+  }
 
   // function to handle when user makes an input
   const handleSchemeDataChange = (id: string, updatedData: SchemeData) => {
@@ -47,7 +61,9 @@ function App() {
 
       {/* ADD PRICING BUTTON */}
       <div>
-        <button>Add pricing scheme</button>
+        <button
+          onClick={handleAddPricingScheme}
+        >Add pricing scheme</button>
       </div>
 
       <DragDropContext
