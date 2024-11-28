@@ -32,3 +32,27 @@ Frontend
 # Deployment
    Frontend & Backend: Deployed on Render.
    Frontend & Backend: https://codechallenge-frontend.onrender.com/
+
+# Setup and Installation
+# Prerequisites
+  - NodeJS latest
+  - Supabase account and create table
+  Clone the Repository
+  ```bash
+#Frontend Setup
+  // Navigate to the frontend directory:
+  cd frontend
+  // Install dependencies:
+  npm install
+  // Run the app
+  npm start
+
+#Backend Setup
+cd backend
+npm install
+// Create a .env file with the following variables:
+PORT
+SUPABASE_URL
+SUPABASE_ANON_KEY
+// run the application
+npm run dev
