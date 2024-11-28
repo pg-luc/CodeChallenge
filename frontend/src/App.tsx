@@ -75,7 +75,7 @@ function App() {
     // this function ensures that whenever the user resubmits/submits it cleans the database
     // then POST the new order/same order of how the user has arranged it currently
     try {
-      const response = await fetch("http://localhost:5500/pricescheme", {
+      const response = await fetch("https://codechallenge-backend-17sg.onrender.com/pricescheme", {
         method: "DELETE",
         headers: { "content-type": "application/json" }
       })
@@ -118,7 +118,7 @@ function App() {
 
     // Send and Create scheme data
     try {
-      const response = await fetch("http://localhost:5500/pricescheme", {
+      const response = await fetch("https://codechallenge-backend-17sg.onrender.com/pricescheme", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(body)
