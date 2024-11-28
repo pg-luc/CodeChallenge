@@ -1,0 +1,29 @@
+.layout {
+    justify-content: center;
+    align-items: center;
+}
+
+.data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.text {
+    font-weight: lighter;
+}
+
+.description {
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

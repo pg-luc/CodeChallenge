@@ -1,0 +1,42 @@
+.layout {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    height: 60vh;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0.2px solid black;
+    margin: 0.4rem;
+}
+
+.scheme {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0.4rem;
+}
+
+.button {
+    color: antiquewhite;
+    background-color: crimson;
+    font-weight: bolder;
+    width: 40px;
+    height: 40px;
+    margin: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0.4rem;
+}

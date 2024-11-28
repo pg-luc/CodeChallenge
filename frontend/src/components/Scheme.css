@@ -1,0 +1,26 @@
+.form {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.select {
+    height: 40px;
+    margin: 5px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 0.4rem;
+
+}
+
+.input {
+    height: 35px;
+    width: 80px;
+    margin: 0.4rem;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.handle {
+    margin: 0.4rem;
+}

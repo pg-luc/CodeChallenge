@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import "./App.css";
 
 // components
 import Scheme from "./components/Scheme";
@@ -139,84 +140,88 @@ function App() {
 
   return (
     <>
-      {/* TITLE */}
-      <div>
-        <h2> SOLX CODING CHALLENGE </h2>
-      </div>
+      <div className='layout'>
+        {/* TITLE */}
+        <div className='title'>
+          <h2> SOLX CODING CHALLENGE </h2>
+        </div>
 
-      {/* ADD PRICING BUTTON */}
-      <div>
-        <button
-          onClick={handleAddPricingScheme}
-        >Add pricing scheme</button>
-      </div>
-
-      {/* PRICING SCHEME DRAG AND DROP AREA */}
-      <DragDropContext
-        onDragEnd={(result) => {
-          const { source, destination } = result;
-          if (!destination) return;
-          const updatedSchemeList = Array.from(schemeList);
-          const [movedItem] = updatedSchemeList.splice(source.index, 1);
-          updatedSchemeList.splice(destination.index, 0, movedItem);
-          setSchemeList(updatedSchemeList);
-        }}
-      >
-        <Droppable droppableId="schemeList">
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-
-              {/* ITERATE AND MAP THROUGH SCHEMELIST AND RENDER EACH COMPONENT */}
-              {schemeList.map((scheme, index) => (
-                <Draggable key={scheme.id} draggableId={scheme.id} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      className="scheme"
-                    >
-                      {/* DELETE BUTTON */}
-                      <button
-                        id={scheme.id}
-                        onClick={(event) => handleDelete(event)}
-                        className="button"
-                      >
-                        -
-                      </button>
-
-                      {/* SCHEME COMPONENT */}
-                      <Scheme
-                        schemeData={scheme}
-                        onSchemeDataChange={(updatedData) =>
-                          handleSchemeDataChange(scheme.id, updatedData)
-                        }
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext >
-
-      {/* SUBMIT BUTTON */}
-      < div >
-        {schemeList.length > 0 && schemeList[schemeList.length - 1].type !== "" && (
+        {/* ADD PRICING BUTTON */}
+        <div>
           <button
-            onClick={handleSubmit}
-          > Submit </button>
-        )}
-      </div >
+            onClick={handleAddPricingScheme}
+          >Add pricing scheme</button>
+        </div>
 
-      {/* RESULT AREA */}
-      <div>
-        <Result
-          schemeList={schemeList}
-          onSubmit={submitPressed}
-        />
+        {/* PRICING SCHEME DRAG AND DROP AREA */}
+        <DragDropContext
+          onDragEnd={(result) => {
+            const { source, destination } = result;
+            if (!destination) return;
+            const updatedSchemeList = Array.from(schemeList);
+            const [movedItem] = updatedSchemeList.splice(source.index, 1);
+            updatedSchemeList.splice(destination.index, 0, movedItem);
+            setSchemeList(updatedSchemeList);
+          }}
+        >
+          <Droppable droppableId="schemeList">
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+
+                {/* ITERATE AND MAP THROUGH SCHEMELIST AND RENDER EACH COMPONENT */}
+                {schemeList.map((scheme, index) => (
+                  <Draggable key={scheme.id} draggableId={scheme.id} index={index}>
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        className="scheme"
+                      >
+                        {/* DELETE BUTTON */}
+                        <button
+                          id={scheme.id}
+                          onClick={(event) => handleDelete(event)}
+                          className="button"
+                        >
+                          -
+                        </button>
+
+                        {/* SCHEME COMPONENT */}
+                        <Scheme
+                          schemeData={scheme}
+                          onSchemeDataChange={(updatedData) =>
+                            handleSchemeDataChange(scheme.id, updatedData)
+                          }
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext >
+
+        {/* SUBMIT BUTTON */}
+        < div className='submit'>
+          {schemeList.length > 0 && schemeList[schemeList.length - 1].type !== "" && (
+            <button
+              onClick={handleSubmit}
+            > Submit </button>
+          )}
+        </div >
+
+        {/* RESULT AREA */}
+        <div>
+          {submitPressed &&
+            <Result
+              schemeList={schemeList}
+              onSubmit={submitPressed}
+            />
+          }
+        </div>
       </div>
     </>
   )

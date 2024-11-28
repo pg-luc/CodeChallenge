@@ -1,6 +1,7 @@
 // Inteface to set fixed data types
 import { ChangeEvent, useState } from 'react';
 import { TfiAlignJustify } from "react-icons/tfi";
+import "./Scheme.css"
 
 interface SchemeProps {
     schemeData: {

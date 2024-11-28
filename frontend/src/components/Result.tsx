@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-//import "./Result.css"
+import "./Result.css"
 
 interface ResultProps {
     schemeList: any[]; // Pass schemeList from App.tsx
