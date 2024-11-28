@@ -1,5 +1,6 @@
 // Inteface to set fixed data types
 import { ChangeEvent, useState } from 'react';
+import { TfiAlignJustify } from "react-icons/tfi";
 
 interface SchemeProps {
     schemeData: {
@@ -35,13 +36,17 @@ const Scheme = ({ schemeData, onSchemeDataChange }: SchemeProps) => {
         onSchemeDataChange({ ...schemeData, [name]: value });
     };
     return (
-        <div>
-            <select >
-                <option value="" disabled>Select option</option>
-                <option value="Fixed pricing" >Fixed pricing</option>
-                <option value="Variable-based" >Variable-based</option>
+        <div className='form'>
+            {/*SCHEME COMPONENT SELECT BOX */}
+            <select name="type" value={schemeData.type} onChange={handleChange} className='select'>
+                <option value="" disabled >
+                    Select Pricing Type
+                </option>
+                <option value="Fixed Pricing">Fixed Pricing</option>
+                <option value="Variable-based">Variable-based</option>
             </select>
 
+            {/*SCHEME COMPONENT INPUT BOX */}
             {inputVisible && (
                 <input
                     type="number"
@@ -52,6 +57,9 @@ const Scheme = ({ schemeData, onSchemeDataChange }: SchemeProps) => {
                     className='input'
                 />
             )}
+
+            {/*SCHEME COMPONENT HANDLE */}
+            <TfiAlignJustify className='handle' />
         </div>
     )
 }
