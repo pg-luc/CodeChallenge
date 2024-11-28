@@ -66,6 +66,7 @@ function App() {
         >Add pricing scheme</button>
       </div>
 
+      {/* PRICING SCHEME DRAG AND DROP AREA */}
       <DragDropContext
         onDragEnd={(result) => {
           const { source, destination } = result;
@@ -79,6 +80,8 @@ function App() {
         <Droppable droppableId="schemeList">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
+
+              {/* ITERATE AND MAP THROUGH SCHEMELIST AND RENDER EACH COMPONENT */}
               {schemeList.map((scheme, index) => (
                 <Draggable key={scheme.id} draggableId={scheme.id} index={index}>
                   {(provided) => (
@@ -96,6 +99,8 @@ function App() {
                       >
                         -
                       </button>
+
+                      {/* SCHEME COMPONENT */}
                       <Scheme
                         schemeData={scheme}
                         onSchemeDataChange={(updatedData) =>
@@ -117,6 +122,7 @@ function App() {
         <button>Submit</button>
       </div >
 
+      {/* RESULT AREA */}
       <div>
         <Result />
       </div>
