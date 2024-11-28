@@ -54,7 +54,6 @@ function App() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); // this is to prevent the page from refreshing everytime submit is pressed
     setSubmitPressed(false); // This resets the submitPressed state
-
     try {
       await deleteMethod(); // check and clear database first
 
@@ -70,12 +69,72 @@ function App() {
   }
 
   {/* HTTP METHOD FUNCTIONS */ }
+  {/* DELETE METHOD */ }
   const deleteMethod = async () => {
-
+    // this function ensures that whenever the user resubmits/submits it cleans the database
+    // then POST the new order/same order of how the user has arranged it currently
+    try {
+      const response = await fetch("http://localhost:5500/pricescheme", {
+        method: "DELETE",
+        headers: { "content-type": "application/json" }
+      })
+      //Check response for error
+      if (!response.ok) {
+        console.log("failed to delete database table");
+        throw new Error("Error deleting existing data");
+      }
+      else {
+        console.log("successfully deleted database table");
+      }
+    }
+    catch (error: any) {
+      //Log any errors
+      console.error("Error posting data: ", error.message);
+    }
   }
 
+  {/* POST METHOD */ }
   const postMethod = async (schemeList: SchemeData[]) => {
+    // Before sending, Validate the user input first
+    for (let scheme of schemeList) {
+      const amount = parseFloat(scheme.amount); // Convert string to float
+      // Check the user input if it is a number and above 0
+      if (isNaN(amount) || amount <= 0) {
+        console.log("Invalid input for scheme amount");
+        alert("Please make sure to input numbers only and above 0"); // creates a pop up alert
+        return; // Stop submission if validation fails
+      }
+    }
 
+    // Before sending, create a unique ID for each scheme in the list
+    const body = {
+      schemeList: schemeList.map(scheme => ({
+        ...scheme, // Copy the existing scheme properties
+        id: uuidv4(), // Add a new unique ID
+        amount: parseFloat(scheme.amount) // Convert amount to float
+      }))
+    };
+
+    // Send and Create scheme data
+    try {
+      const response = await fetch("http://localhost:5500/pricescheme", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body)
+      })
+      //Check response for error
+      if (!response.ok) {
+        console.log("failed to post data in table");
+        throw new Error("Error posting data");
+      }
+      else {
+        console.log("Successfully posted Data");
+      }
+    }
+    catch (error: any) {
+      //Log any errors
+      console.error("Error posting data: ", error.message);
+    }
   }
 
   return (
@@ -154,7 +213,10 @@ function App() {
 
       {/* RESULT AREA */}
       <div>
-        <Result />
+        <Result
+          schemeList={schemeList}
+          onSubmit={submitPressed}
+        />
       </div>
     </>
   )

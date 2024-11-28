@@ -14,6 +14,8 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token", "X-Requested-With", "Accept", "Accept-Version", "Content-Length", "Content-MD5", "Content-Type", "Date", "X-Api-Version"], // Allow all necessary headers
     credentials: true
 }));
+app.options('*', cors());  // Enable CORS for all routes, including OPTIONS
+app.use(express.json()); // Included to parse the JSON body
 
 //ROUTES
 // HOMEPAGE 
@@ -70,9 +72,9 @@ app.post("/pricescheme", async (req, res) => {
             return res.status(400).json({ error: error.message }); // Stop processing on first error
         }
 
-        // if success in creating, send back data 
-        res.status(200).json(data);
-        console.log('Succesfully created Table rows');
+        // Success response
+        console.log('Successfully created table rows:', schemesToInsert);
+        return res.status(200).json(data);
     }
     catch (error) {
         // log the errors
