@@ -15,7 +15,7 @@ const Result = ({ schemeList, onSubmit }: ResultProps) => {
         setLoading(true);
         try {
             // Simple get method and store the response
-            const response = await fetch("http://localhost:5500/pricescheme", {
+            const response = await fetch("https://codechallenge-backend-17sg.onrender.com/pricescheme", {
                 method: "GET"
             })
             //Check response for error
