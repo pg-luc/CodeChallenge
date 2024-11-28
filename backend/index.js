@@ -9,7 +9,7 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANO
 
 // middleware
 app.use(cors({
-    origin: "http://localhost:5173", // Replace with your frontend's origin
+    origin: "https://codechallenge-frontend.onrender.com", // Replace with your frontend's origin
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allow all necessary methods
     allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token", "X-Requested-With", "Accept", "Accept-Version", "Content-Length", "Content-MD5", "Content-Type", "Date", "X-Api-Version"], // Allow all necessary headers
     credentials: true
