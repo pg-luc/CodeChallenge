@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
     res.send("WELCOME TO THE BACKEND");
 });
 
-// GET METHOD
+// ====== GET METHOD ======
 app.get("/pricescheme", async (req, res) => {
     try {
         // get the all the rows from the database
@@ -47,7 +47,7 @@ app.get("/pricescheme", async (req, res) => {
 
 })
 
-// POST METHOD
+// ====== POST METHOD ======
 app.post("/pricescheme", async (req, res) => {
     try {
         const { schemeList } = req.body;  // deconstruct the schemeList from the request body
@@ -81,6 +81,50 @@ app.post("/pricescheme", async (req, res) => {
     }
 })
 
+// ====== DELETE METHOD ======
+app.delete("/pricescheme", async (req, res) => {
+    try {
+        // Get the database info first
+        const { data: rows, error: checkError } = await supabase
+            .from("pricescheme")
+            .select("*");
+
+        // If there is an error checking the table rows
+        if (checkError) {
+            console.error("Error checking table rows:", checkError.message);
+            return res.status(400).json({ error: "Error checking table rows" });
+        }
+
+        // Check if there are table rows or if there is data
+        if (!rows || rows.length === 0) {
+            console.log("No rows to delete. The table is already empty.");
+            return res.status(100).json({ message: "Table is already empty. No rows to delete." });
+        }
+
+        // Proceed to delete data in table if no error and there is data
+        const { data, error: deleteError } = await supabase
+            .from("pricescheme")
+            .delete()
+            .gte("id", "00000000-0000-0000-0000-000000000000"); // Matches all UUIDs
+
+        // Check if there is an error in deletion
+        if (deleteError) {
+            console.error("Error deleting table rows:", deleteError.message);
+            return res.status(400).json({ error: "Error deleting rows" });
+        }
+
+        // if success in deleting, send message that database is empty
+        res.status(200).json({ message: "All rows deleted successfully", data });
+        console.log('Succesfully deleted Table rows');
+    }
+    catch (error) {
+        // log the errors
+        console.error(error.message);
+        res.status(500).json({ error: error.message });
+    }
+})
+
 app.listen(port, async () => {
     console.log(`server has stated on port: ${port}`);
+    // this is where the delete function will go on startup
 })

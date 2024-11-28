@@ -17,6 +17,7 @@ interface SchemeData {
 function App() {
   // array to store the schemes 
   const [schemeList, setSchemeList] = useState<SchemeData[]>([]);
+  const [submitPressed, setSubmitPressed] = useState(false);
 
   // function to handle when add pricing scheme button is pressed
   const handleAddPricingScheme = () => {
@@ -26,7 +27,6 @@ function App() {
       amount: "rate",
       type: ""
     };
-
     // add the new scheme to the list
     setSchemeList([...schemeList, newScheme]);
   }
@@ -37,7 +37,6 @@ function App() {
     const updatedSchemeList = schemeList.map(scheme =>
       scheme.id === id ? updatedData : scheme // update the data
     );
-
     // re-set the new list
     setSchemeList(updatedSchemeList);
   }
@@ -45,16 +44,43 @@ function App() {
   // function to handle deletion of price scheme in the UI NOT in the database
   const handleDelete = (event: any) => {
     const { id } = event.target;
-
     // Filter out the scheme with the matching id
     const updatedSchemeList = schemeList.filter((scheme) => scheme.id !== id);
-
     // Update the list with the filtered list
     setSchemeList(updatedSchemeList);
   }
 
+  // function to handle when the submit button is pressed
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault(); // this is to prevent the page from refreshing everytime submit is pressed
+    setSubmitPressed(false); // This resets the submitPressed state
+
+    try {
+      await deleteMethod(); // check and clear database first
+
+      await postMethod(schemeList) // take the schemelist and insert into database
+
+      setSubmitPressed(true); // Set submitPressed to true after successful POST request
+
+    } catch (error: any) {
+      // log the errors
+      console.error(error.message);
+      return; // Stop further execution if the methods fail
+    }
+  }
+
+  {/* HTTP METHOD FUNCTIONS */ }
+  const deleteMethod = async () => {
+
+  }
+
+  const postMethod = async (schemeList: SchemeData[]) => {
+
+  }
+
   return (
     <>
+      {/* TITLE */}
       <div>
         <h2> SOLX CODING CHALLENGE </h2>
       </div>
@@ -119,7 +145,11 @@ function App() {
 
       {/* SUBMIT BUTTON */}
       < div >
-        <button>Submit</button>
+        {schemeList.length > 0 && schemeList[schemeList.length - 1].type !== "" && (
+          <button
+            onClick={handleSubmit}
+          > Submit </button>
+        )}
       </div >
 
       {/* RESULT AREA */}
