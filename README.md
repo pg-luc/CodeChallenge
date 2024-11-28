@@ -4,7 +4,7 @@
 This is a Pricing Scheme Application that allows users to add, delete, reorder, and submit pricing schemes. 
 The app uses a modern stack (React, NodeJs, Supabase, Render) for both frontend and backend, ensuring scalability and efficiency.
 
-Try the app here: https://codechallenge-frontend.onrender.com/
+Try the app here: https://codechallenge-frontend.onrender.com/ (currently being hosted on a free tier of render, apologies if its VERY slow sometimes)
 
 # Features
   Choose and add a new pricing schemes dynamically.
